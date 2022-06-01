@@ -29,4 +29,13 @@ public class BooksIntegrationTest {
                 .andDo(print());
 
     }
+
+    @Test
+    public void testGetBookById() throws Exception {
+
+        mockMvc.perform(get("/api/v1/books/1"))
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print());
+
+    }
 }
