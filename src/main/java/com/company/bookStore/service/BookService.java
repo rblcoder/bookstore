@@ -24,6 +24,15 @@ public class BookService {
         return convertEntityToDto(bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException()));
     }
 
+    public List<BookDto> getBooksByTitle(String title) {
+        return bookRepository.findBooksByTitleIgnoreCase(title)
+                .stream().map(this::convertEntityToDto).collect(Collectors.toList());
+    }
+
+    public BookDto getBookByTitlePublishedYear(String title, Long publishedYear) {
+        return convertEntityToDto(bookRepository.findBookByTitleAndPublishedYear(title, publishedYear));
+    }
+
     private BookDto convertEntityToDto(Book book) {
         BookDto bookDto = new BookDto(book.getId(), book.getTitle(), book.getPublishedYear());
         return bookDto;

@@ -21,9 +21,11 @@ public class Book {
 
     @NotEmpty(message = "Book title cannot be empty")
     @NonNull
+    @Column
     private String title;
 
     @NonNull
+    @Column
     private Long publishedYear;
 
 }

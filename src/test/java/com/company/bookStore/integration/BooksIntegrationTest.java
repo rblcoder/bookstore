@@ -38,4 +38,23 @@ public class BooksIntegrationTest {
                 .andDo(print());
 
     }
+
+    @Test
+    public void testGetBooksByTitle() throws Exception {
+
+        mockMvc.perform(get("/api/v1/books/title/peace"))
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print());
+
+    }
+
+    @Test
+    public void testGetBookByTitleAndPublishedYear() throws Exception {
+
+        mockMvc.perform(get("/api/v1/books/title/Peace/publishedyear/2002"))
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print());
+
+    }
+
 }
