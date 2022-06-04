@@ -4,6 +4,7 @@ import com.company.bookStore.model.Book;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Generated;
 import lombok.Getter;
 
 import java.io.Serializable;
@@ -20,9 +21,6 @@ public class BookDto implements Serializable {
     private final String title;
     private final Long publishedYear;
 
-    public static Book create(BookDto bookDto) {
-        return new Book(bookDto.getId(), bookDto.getTitle(), bookDto.getPublishedYear());
-    }
 
     @Override
     public boolean equals(Object o) {

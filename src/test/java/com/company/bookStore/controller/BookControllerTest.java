@@ -33,7 +33,10 @@ public class BookControllerTest {
     void shouldGetAllBooks() throws Exception {
         List<BookDto> bookDtoList = new ArrayList<>();
         BookDto bookDtoPeace = new BookDto(1L, "Peace", 2002L);
-        BookDto bookDtoIndependence = new BookDto(2L, "India Independence", 1998L);
+        BookDto bookDtoIndependence = BookDto.builder()
+                .id(2L)
+                .title("India Independence")
+                .publishedYear(1998L).build();
         bookDtoList.add(bookDtoPeace);
         bookDtoList.add(bookDtoIndependence);
 
