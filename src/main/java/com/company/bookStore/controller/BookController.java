@@ -47,11 +47,13 @@ public class BookController {
         return ResponseEntity.ok(bookService.getBookById(id));
     }
 
+    @Operation(summary = "Get book by Title")
     @GetMapping("/title/{title}")
     public ResponseEntity<List<BookDto>> getBooksByTitle(@PathVariable String title) {
         return ResponseEntity.ok(bookService.getBooksByTitle(title));
     }
 
+    @Operation(summary = "Get book by Title and Published Year")
     @GetMapping("/title/{title}/publishedyear/{publishedYear}")
     public ResponseEntity<BookDto> getBooksByTitle(@PathVariable String title, @PathVariable Long publishedYear) {
         return ResponseEntity.ok(bookService.getBookByTitlePublishedYear(title, publishedYear));

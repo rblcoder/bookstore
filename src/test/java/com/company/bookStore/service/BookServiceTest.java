@@ -18,13 +18,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {
 
+    private final ModelMapper modelMapper = new ModelMapper();
     @Mock
     private BookRepository bookRepository;
-
     @InjectMocks
     private BookService bookService;
-
-    private final ModelMapper modelMapper = new ModelMapper();
 
     @Test
     void shouldGetAllBooks() {
