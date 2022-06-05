@@ -26,8 +26,8 @@ public class BookService {
 
     public BookDto getBookById(Long id) {
 
-        return modelMapper.map(bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException()),
-                BookDto.BookDtoBuilder.class).build();
+        return convertEntityToDto(bookRepository
+                .findById(id).orElseThrow(() -> new BookNotFoundException()));
     }
 
     public List<BookDto> getBooksByTitle(String title) {
