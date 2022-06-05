@@ -13,12 +13,12 @@ public class BookDtoTest {
     }
 
     @Test
-    void shouldConvertToString(){
+    void shouldConvertToString() {
         Assertions.assertEquals("BookDto.BookDtoBuilder(id=2, title=India Independence, publishedYear=1998)",
                 BookDto.builder().id(2L)
-                .title("India Independence")
-                .publishedYear(1998L)
-                .toString());
+                        .title("India Independence")
+                        .publishedYear(1998L)
+                        .toString());
     }
 
 }

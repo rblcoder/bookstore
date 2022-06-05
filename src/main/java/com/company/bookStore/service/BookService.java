@@ -31,15 +31,15 @@ public class BookService {
     }
 
     public List<BookDto> getBooksByTitle(String title) {
-         return bookRepository.findBooksByTitleIgnoreCase(title)
+        return bookRepository.findBooksByTitleIgnoreCase(title)
                 .stream().map(b ->
-                         modelMapper.map(b, BookDto.BookDtoBuilder.class).build()).collect(Collectors.toList());
+                        modelMapper.map(b, BookDto.BookDtoBuilder.class).build()).collect(Collectors.toList());
     }
 
     public BookDto getBookByTitlePublishedYear(String title, Long publishedYear) {
         return convertEntityToDto(bookRepository
                 .findBookByTitleAndPublishedYear(title, publishedYear)
-                .orElseThrow(()-> new BookNotFoundException()));
+                .orElseThrow(() -> new BookNotFoundException()));
     }
 
     private BookDto convertEntityToDto(Book book) {
