@@ -9,11 +9,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -57,6 +55,21 @@ public class BookController {
     @GetMapping("/title/{title}/publishedyear/{publishedYear}")
     public ResponseEntity<BookDto> getBooksByTitle(@PathVariable String title, @PathVariable Long publishedYear) {
         return ResponseEntity.ok(bookService.getBookByTitlePublishedYear(title, publishedYear));
+    }
+
+    @Operation(summary = "Add a new book",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Book to add",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = BookDto.class))))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Book added successfully ",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = BookDto.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid json supplied",
+                    content = @Content)})
+    @PostMapping
+    public ResponseEntity<BookDto> newBook(@org.springframework.web.bind.annotation.RequestBody  BookDto bookDto) {
+        return ResponseEntity.ok(bookService.saveBook(bookDto));
     }
 
 }

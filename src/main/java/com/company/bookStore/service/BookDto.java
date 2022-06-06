@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -13,6 +14,7 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @Getter
+@Setter
 public class BookDto implements Serializable {
 
     private final Long id;

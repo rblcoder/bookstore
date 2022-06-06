@@ -41,4 +41,16 @@ public class BookService {
         BookDto bookDto = new BookDto(book.getId(), book.getTitle(), book.getPublishedYear());
         return bookDto;
     }
+
+    private Book convertDtoToEntity(BookDto bookDto) {
+        Book book = Book.builder()
+                .id(bookDto.getId())
+                .title(bookDto.getTitle())
+                .publishedYear(bookDto.getPublishedYear()).build();
+        return book;
+    }
+
+    public BookDto saveBook(BookDto bookDto) {
+        return convertEntityToDto(bookRepository.save(convertDtoToEntity(bookDto)));
+    }
 }

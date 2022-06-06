@@ -93,4 +93,26 @@ public class BookServiceTest {
         Assertions.assertEquals(bookDtoList, bookService.getBooksByTitle("peace"));
 
     }
+
+    @Test
+    void shouldSaveNewBook() {
+        BookDto bookDtoPeace = BookDto.builder()
+                .title("Peace")
+                .publishedYear(2002L).build();
+
+        BookDto bookDtoPeaceSaved = BookDto.builder()
+                .id(1L)
+                .title("Peace")
+                .publishedYear(2002L).build();
+
+        Book bookPeace = modelMapper.map(bookDtoPeace, Book.class);
+
+        Book bookPeaceSaved = modelMapper.map(bookDtoPeace, Book.class);
+        bookPeaceSaved.setId(1L);
+
+        when(bookRepository.save(bookPeace)).thenReturn(bookPeaceSaved);
+
+        Assertions.assertEquals(bookDtoPeaceSaved, bookService.saveBook(bookDtoPeace));
+
+    }
 }
