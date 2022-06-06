@@ -1,6 +1,5 @@
 package com.company.bookStore.service;
 
-import com.company.bookStore.exception.BookNotFoundException;
 import com.company.bookStore.model.Book;
 import com.company.bookStore.repository.BookRepository;
 import org.junit.jupiter.api.Assertions;
@@ -46,7 +45,7 @@ public class BookServiceTest {
     }
 
     @Test
-    void shouldGetBookById(){
+    void shouldGetBookById() {
         BookDto bookDtoPeace = BookDto
                 .builder().id(1L)
                 .title("Peace").publishedYear(2002L).build();
