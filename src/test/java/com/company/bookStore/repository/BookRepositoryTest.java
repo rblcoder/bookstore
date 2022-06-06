@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 public class BookRepositoryTest {
@@ -18,7 +17,7 @@ public class BookRepositoryTest {
 
     @Test
     void shouldGetAllBooks() {
-        List<Book> bookList = new ArrayList<>();
+
         Book bookPeace = Book.builder()
                 .id(1L).title("Peace")
                 .publishedYear(2002L).build();
@@ -30,9 +29,6 @@ public class BookRepositoryTest {
 
         bookRepository.save(bookPeace);
         bookRepository.save(bookIndependence);
-
-        bookList.add(bookPeace);
-        bookList.add(bookIndependence);
 
         Assertions.assertTrue(bookRepository.findAll().contains(bookPeace));
         Assertions.assertTrue(bookRepository.findAll().contains(bookIndependence));
@@ -46,5 +42,24 @@ public class BookRepositoryTest {
         bookRepository.save(bookPeace);
         Assertions.assertTrue(bookRepository.findById(1L).isPresent());
 
+    }
+
+    @Test
+    void shouldFindBooksByTitleIgnoringCase() {
+        Book bookPeace = Book.builder()
+                .id(1L).title("Peace")
+                .publishedYear(2002L).build();
+        bookRepository.save(bookPeace);
+        Assertions.assertTrue(bookRepository.findBooksByTitleIgnoreCase("peace").contains(bookPeace));
+    }
+
+    @Test
+    void shouldFindBookByTitleAndPublishedYear() {
+        Book bookPeace = Book.builder()
+                .id(1L).title("Peace")
+                .publishedYear(2002L).build();
+        bookRepository.save(bookPeace);
+        Assertions.assertEquals(Optional.of(bookPeace),
+                bookRepository.findBookByTitleAndPublishedYear("Peace", 2002L));
     }
 }
