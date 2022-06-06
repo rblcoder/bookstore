@@ -3,7 +3,6 @@ package com.company.bookStore.service;
 import com.company.bookStore.exception.BookNotFoundException;
 import com.company.bookStore.model.Book;
 import com.company.bookStore.repository.BookRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +14,6 @@ public class BookService {
 
     @Autowired
     private BookRepository bookRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     public List<BookDto> getAllBooks() {
         return bookRepository.findAll().stream()
@@ -32,8 +28,7 @@ public class BookService {
 
     public List<BookDto> getBooksByTitle(String title) {
         return bookRepository.findBooksByTitleIgnoreCase(title)
-                .stream().map(b ->
-                        modelMapper.map(b, BookDto.BookDtoBuilder.class).build()).collect(Collectors.toList());
+                .stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 
     public BookDto getBookByTitlePublishedYear(String title, Long publishedYear) {

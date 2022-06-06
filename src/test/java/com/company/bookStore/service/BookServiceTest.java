@@ -28,8 +28,14 @@ public class BookServiceTest {
     @Test
     void shouldGetAllBooks() {
         List<BookDto> bookDtoList = new ArrayList<>();
-        BookDto bookDtoPeace = new BookDto(1L, "Peace", 2002L);
-        BookDto bookDtoIndependence = new BookDto(2L, "India Independence", 1998L);
+        BookDto bookDtoPeace = BookDto.builder()
+                .id(1L).title("Peace")
+                .publishedYear(2002L).build();
+
+        BookDto bookDtoIndependence = BookDto.builder()
+                .id(2L).title("India Independence")
+                .publishedYear(2002L).build();
+
         bookDtoList.add(bookDtoPeace);
         bookDtoList.add(bookDtoIndependence);
 
@@ -56,6 +62,35 @@ public class BookServiceTest {
 
         Assertions.assertEquals(bookDtoPeace, bookService.getBookById(bookDtoPeace.getId()));
 
+
+    }
+
+    @Test
+    void shouldFindBooksByTitleIgnoringCase() {
+
+        List<BookDto> bookDtoList = new ArrayList<>();
+        BookDto bookDtoPeace = BookDto.builder()
+                .id(1L).title("Peace")
+                .publishedYear(2002L).build();
+
+        BookDto bookDtoPeaceAnother = BookDto.builder()
+                .id(2L).title("peace")
+                .publishedYear(2000L).build();
+
+        bookDtoList.add(bookDtoPeace);
+        bookDtoList.add(bookDtoPeaceAnother);
+
+        List<Book> bookList = new ArrayList<>();
+
+        Book bookPeace = modelMapper.map(bookDtoPeace, Book.class);
+        Book bookPeaceAnother = modelMapper.map(bookDtoPeaceAnother, Book.class);
+
+        bookList.add(bookPeace);
+        bookList.add(bookPeaceAnother);
+
+        when(bookRepository.findBooksByTitleIgnoreCase("peace")).thenReturn(bookList);
+
+        Assertions.assertEquals(bookDtoList, bookService.getBooksByTitle("peace"));
 
     }
 }
