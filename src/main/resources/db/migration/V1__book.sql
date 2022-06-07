@@ -6,5 +6,3 @@ CREATE TABLE book (
 );
 
 ALTER TABLE book ADD CONSTRAINT uc_book_title_published_year UNIQUE (title, published_year);
-
-insert into book (title, published_year) values ('Peace', 2002);
