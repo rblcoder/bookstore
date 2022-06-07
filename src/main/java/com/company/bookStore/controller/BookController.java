@@ -10,8 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import javax.validation.Valid;
+
 import java.util.List;
 
 @RestController
@@ -68,7 +67,7 @@ public class BookController {
             @ApiResponse(responseCode = "400", description = "Invalid json supplied",
                     content = @Content)})
     @PostMapping
-    public ResponseEntity<BookDto> newBook(@org.springframework.web.bind.annotation.RequestBody  BookDto bookDto) {
+    public ResponseEntity<BookDto> newBook(@org.springframework.web.bind.annotation.RequestBody BookDto bookDto) {
         return ResponseEntity.ok(bookService.saveBook(bookDto));
     }
 

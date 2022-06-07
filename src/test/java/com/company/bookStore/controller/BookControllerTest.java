@@ -50,6 +50,19 @@ public class BookControllerTest {
     }
 
     @Test
+    void shouldGetBookById() throws Exception {
+        BookDto bookDtoPeace = BookDto.builder()
+                .id(1L).title("Peace")
+                .publishedYear(2002L).build();
+
+        when(bookService.getBookById(1L)).thenReturn(bookDtoPeace);
+
+        mockMvc.perform(get("/api/v1/books/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(bookDtoPeace)));
+    }
+
+    @Test
     void shouldSaveNewBook() throws Exception {
         BookDto bookDtoPeace = BookDto.builder()
                 .title("Peace")
