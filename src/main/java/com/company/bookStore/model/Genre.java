@@ -1,5 +1,6 @@
 package com.company.bookStore.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Genre of Books")
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

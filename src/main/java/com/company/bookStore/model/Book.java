@@ -1,5 +1,6 @@
 package com.company.bookStore.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Objects;
 @Setter
 @Table(name = "book",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "publishedYear"})})
+@Schema(description = "Details of Book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
