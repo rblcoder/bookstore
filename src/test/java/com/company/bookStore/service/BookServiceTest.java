@@ -1,9 +1,12 @@
 package com.company.bookStore.service;
 
 import com.company.bookStore.model.Book;
+import com.company.bookStore.model.Genre;
 import com.company.bookStore.repository.BookRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -17,24 +20,34 @@ import java.util.Optional;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BookServiceTest {
 
     private final ModelMapper modelMapper = new ModelMapper();
     @Mock
     private BookRepository bookRepository;
+
     @InjectMocks
     private BookService bookService;
+
+    private Genre genreClassics;
+
+    @BeforeAll
+    void setUp() {
+        genreClassics = new Genre(1L, "Classics");
+
+    }
 
     @Test
     void shouldGetAllBooks() {
         List<BookDto> bookDtoList = new ArrayList<>();
         BookDto bookDtoPeace = BookDto.builder()
                 .id(1L).title("Peace")
-                .publishedYear(2002L).build();
+                .publishedYear(2002L).genre(genreClassics).build();
 
         BookDto bookDtoIndependence = BookDto.builder()
                 .id(2L).title("India Independence")
-                .publishedYear(2002L).build();
+                .publishedYear(2002L).genre(genreClassics).build();
 
         bookDtoList.add(bookDtoPeace);
         bookDtoList.add(bookDtoIndependence);
@@ -54,7 +67,7 @@ public class BookServiceTest {
     void shouldGetBookById() {
         BookDto bookDtoPeace = BookDto
                 .builder().id(1L)
-                .title("Peace").publishedYear(2002L).build();
+                .title("Peace").publishedYear(2002L).genre(genreClassics).build();
 
         Book bookPeace = modelMapper.map(bookDtoPeace, Book.class);
 
@@ -71,11 +84,11 @@ public class BookServiceTest {
         List<BookDto> bookDtoList = new ArrayList<>();
         BookDto bookDtoPeace = BookDto.builder()
                 .id(1L).title("Peace")
-                .publishedYear(2002L).build();
+                .publishedYear(2002L).genre(genreClassics).build();
 
         BookDto bookDtoPeaceAnother = BookDto.builder()
                 .id(2L).title("peace")
-                .publishedYear(2000L).build();
+                .publishedYear(2000L).genre(genreClassics).build();
 
         bookDtoList.add(bookDtoPeace);
         bookDtoList.add(bookDtoPeaceAnother);
@@ -104,6 +117,28 @@ public class BookServiceTest {
                 .id(1L)
                 .title("Peace")
                 .publishedYear(2002L).build();
+
+        Book bookPeace = modelMapper.map(bookDtoPeace, Book.class);
+
+        Book bookPeaceSaved = modelMapper.map(bookDtoPeace, Book.class);
+        bookPeaceSaved.setId(1L);
+
+        when(bookRepository.save(bookPeace)).thenReturn(bookPeaceSaved);
+
+        Assertions.assertEquals(bookDtoPeaceSaved, bookService.saveBook(bookDtoPeace));
+
+    }
+
+    @Test
+    void shouldSaveNewBookWithGenre() {
+        BookDto bookDtoPeace = BookDto.builder()
+                .title("Peace")
+                .publishedYear(2002L).genre(genreClassics).build();
+
+        BookDto bookDtoPeaceSaved = BookDto.builder()
+                .id(1L)
+                .title("Peace")
+                .publishedYear(2002L).genre(genreClassics).build();
 
         Book bookPeace = modelMapper.map(bookDtoPeace, Book.class);
 

@@ -38,7 +38,11 @@ public class BookService {
     }
 
     private BookDto convertEntityToDto(Book book) {
-        BookDto bookDto = new BookDto(book.getId(), book.getTitle(), book.getPublishedYear());
+        BookDto bookDto = BookDto.builder().id(book.getId())
+                .title(book.getTitle())
+                .publishedYear(book.getPublishedYear())
+                .genre(book.getGenre()).build();
+
         return bookDto;
     }
 
@@ -46,7 +50,8 @@ public class BookService {
         Book book = Book.builder()
                 .id(bookDto.getId())
                 .title(bookDto.getTitle())
-                .publishedYear(bookDto.getPublishedYear()).build();
+                .publishedYear(bookDto.getPublishedYear())
+                .genre(bookDto.getGenre()).build();
         return book;
     }
 

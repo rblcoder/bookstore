@@ -29,6 +29,10 @@ public class Book {
     @Column
     private Long publishedYear;
 
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,12 +41,13 @@ public class Book {
         return Objects.equals(id, book.id)
                 && Objects.equals(title, book.title)
                 && Objects.equals(publishedYear,
-                book.publishedYear);
+                book.publishedYear)
+                && Objects.equals(genre, book.genre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, publishedYear);
+        return Objects.hash(id, title, publishedYear, genre);
     }
 
     @Override
@@ -51,6 +56,7 @@ public class Book {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", publishedYear=" + publishedYear +
+                ", genre=" + genre +
                 '}';
     }
 }
