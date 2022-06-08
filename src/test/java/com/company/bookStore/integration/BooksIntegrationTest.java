@@ -4,9 +4,15 @@ import com.company.bookStore.model.Book;
 import com.company.bookStore.model.Genre;
 import com.company.bookStore.repository.BookRepository;
 import com.company.bookStore.repository.GenreRepository;
+import com.company.bookStore.service.BookDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration;
+import org.modelmapper.convention.NameTransformers;
+import org.modelmapper.convention.NamingConventions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +20,17 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BooksIntegrationTest {
+
 
     @Autowired
     MockMvc mockMvc;
@@ -34,8 +43,15 @@ public class BooksIntegrationTest {
 
     Logger logger = LoggerFactory.getLogger(BooksIntegrationTest.class);
 
+    BookDto bookDtoPeace;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @BeforeAll
     public void setup() {
+
+
         Genre genreNonFiction = new Genre(1L, "Non fiction");
         logger.info("Preloading " + genreRepository.save(genreNonFiction));
 
@@ -44,6 +60,13 @@ public class BooksIntegrationTest {
                 .publishedYear(2002L)
                 .genre(genreNonFiction).build();
         logger.info("Preloading " + bookRepository.save(bookPeace));
+
+        bookDtoPeace = BookDto.builder()
+                .id(bookPeace.getId()).title(bookPeace.getTitle())
+                .publishedYear(bookPeace.getPublishedYear())
+                .genre(bookPeace.getGenre()).build();
+
+
     }
 
     @Test
@@ -60,6 +83,7 @@ public class BooksIntegrationTest {
 
         mockMvc.perform(get("/api/v1/books/1"))
                 .andExpect(status().is2xxSuccessful())
+                .andExpect(content().json(objectMapper.writeValueAsString(bookDtoPeace)))
                 .andDo(print());
 
     }
