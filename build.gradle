@@ -3,6 +3,8 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'jacoco'
+	id 'com.google.cloud.tools.jib' version '3.2.1'
+	id "nebula.release" version "16.0.0"
 }
 
 group = 'com.company'
@@ -43,4 +45,24 @@ tasks.named('test') {
 
 test {
 	finalizedBy jacocoTestReport
+}
+
+bootJar {
+	archiveFileName = 'bookstoreapi.jar'
+}
+
+jib{
+	from {
+		image='openjdk:8-alpine'
+	}
+	to {
+		image='registry.hub.docker.com/ruplah/spring-boot-book-store'
+		auth {
+			username = USERNAME // Defined in 'gradle.properties'.
+			password = PASSWORD
+		}
+		container{
+			ports = ["8080"]
+		}
+	}
 }
