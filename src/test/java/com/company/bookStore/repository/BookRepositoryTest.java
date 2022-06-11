@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class BookRepositoryTest {
 
     @Autowired
@@ -23,14 +24,12 @@ public class BookRepositoryTest {
     GenreRepository genreRepository;
 
     @Test
-    @DirtiesContext
     void shouldSaveGenre() {
         Genre genreNonFiction = new Genre(1L, "Classics");
         Assertions.assertEquals(genreNonFiction, genreRepository.save(genreNonFiction));
     }
 
     @Test
-    @DirtiesContext
     void shouldGetAllBooks() {
 
         Book bookPeace = Book.builder()
@@ -52,7 +51,6 @@ public class BookRepositoryTest {
     }
 
     @Test
-    @DirtiesContext
     void shouldFindBookById() {
         Genre genreNonFiction = new Genre(1L, "Classics");
         genreRepository.save(genreNonFiction);
@@ -66,7 +64,6 @@ public class BookRepositoryTest {
     }
 
     @Test
-    @DirtiesContext
     void shouldFindBooksByTitleIgnoringCase() {
         Book bookPeace = Book.builder()
                 .id(1L).title("Jack and the beanstalk")
@@ -76,7 +73,6 @@ public class BookRepositoryTest {
     }
 
     @Test
-    @DirtiesContext
     void shouldFindBookByTitleAndPublishedYear() {
         Book bookPeace = Book.builder()
                 .id(1L).title("Jack and the beanstalk")
