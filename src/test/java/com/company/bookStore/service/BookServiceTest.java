@@ -1,5 +1,6 @@
 package com.company.bookStore.service;
 
+import com.company.bookStore.exception.BookNotFoundException;
 import com.company.bookStore.model.Book;
 import com.company.bookStore.model.Genre;
 import com.company.bookStore.repository.BookRepository;
@@ -77,6 +78,34 @@ public class BookServiceTest {
 
 
     }
+
+    @Test
+    void shouldThrowExceptionGetBookByIdNotFound() {
+        when(bookRepository.findById(2L)).thenThrow(new BookNotFoundException());
+
+        Assertions.assertThrows(BookNotFoundException.class, ()->
+                bookService.getBookById(2L));
+
+    }
+
+    @Test
+    void shouldGetBookByTitlePublishedYear() {
+        BookDto bookDtoPeace = BookDto
+                .builder().id(1L)
+                .title("Peace").publishedYear(2002L).genre(genreClassics).build();
+
+        Book bookPeace = modelMapper.map(bookDtoPeace, Book.class);
+
+        when(bookRepository
+                .findBookByTitleAndPublishedYear(bookPeace.getTitle(),
+                        bookPeace.getPublishedYear())).thenReturn(Optional.of(bookPeace));
+
+        Assertions.assertEquals(bookDtoPeace,
+                bookService.getBookByTitlePublishedYear(bookPeace.getTitle(),
+                        bookPeace.getPublishedYear()));
+
+    }
+
 
     @Test
     void shouldFindBooksByTitleIgnoringCase() {
