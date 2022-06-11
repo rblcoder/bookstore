@@ -16,6 +16,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -40,6 +43,8 @@ public class BooksIntegrationTest {
 
     BookDto bookDtoPeace;
 
+    List<BookDto> bookDtoList;
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -61,6 +66,9 @@ public class BooksIntegrationTest {
                 .publishedYear(bookPeace.getPublishedYear())
                 .genre(bookPeace.getGenre()).build();
 
+        bookDtoList = new ArrayList<>();
+        bookDtoList.add(bookDtoPeace);
+
 
     }
 
@@ -69,6 +77,7 @@ public class BooksIntegrationTest {
 
         mockMvc.perform(get("/api/v1/books"))
                 .andExpect(status().is2xxSuccessful())
+                .andExpect(content().json(objectMapper.writeValueAsString(bookDtoList)))
                 .andDo(print());
 
     }
