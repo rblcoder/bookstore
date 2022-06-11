@@ -83,7 +83,7 @@ public class BookServiceTest {
     void shouldThrowExceptionGetBookByIdNotFound() {
         when(bookRepository.findById(2L)).thenThrow(new BookNotFoundException());
 
-        Assertions.assertThrows(BookNotFoundException.class, ()->
+        Assertions.assertThrows(BookNotFoundException.class, () ->
                 bookService.getBookById(2L));
 
     }
