@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Genres - BookShop Admin')"/>
+<body>
+<div class="container-fluid">
+    <h2>Manage Genres</h2>
+    <div class="full-details">
+
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead>
+            <tr>
+                <th> Name</th>
+                <th> Parent</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${genres.empty}">
+                <td colspan="2"> No Genres Available</td>
+            </tr>
+            <tr th:each="genre : ${genres}">
+                <td><span th:text="${genre.name}"> Name </span></td>
+                <td><span th:text="${genre.parent?.name}"> Parent </span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

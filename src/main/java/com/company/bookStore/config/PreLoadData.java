@@ -26,13 +26,38 @@ public class PreLoadData {
     void init() {
 
         Genre genreNonFiction = new Genre(1L, "Non fiction");
+
         logger.info("Preloading " + genreRepository.save(genreNonFiction));
+
+        Genre genreNonFictionSelfHelp = new Genre(2L, "Self-Help");
+        genreNonFictionSelfHelp.setParent(genreNonFiction);
+
+        logger.info("Preloading " + genreRepository.save(genreNonFictionSelfHelp));
+
 
         Book bookPeace = Book.builder()
                 .id(1L).title("Peace")
                 .publishedYear(2002L)
-                .genre(genreNonFiction).build();
+                .genre(genreNonFictionSelfHelp).build();
         logger.info("Preloading " + bookRepository.save(bookPeace));
+
+        Genre genreComputer = new Genre(3L, "Computer Technology");
+        genreComputer.setParent(genreNonFiction);
+
+        logger.info("Preloading " + genreRepository.save(genreComputer));
+
+        Genre genreJava = new Genre(4L, "Java");
+        genreJava.setParent(genreComputer);
+
+        logger.info("Preloading " + genreRepository.save(genreJava));
+
+
+        Book bookJavaLearn = Book.builder()
+                .id(2L).title("Learn Java 8")
+                .publishedYear(2020L)
+                .genre(genreJava).build();
+
+        logger.info("Preloading " + bookRepository.save(bookJavaLearn));
 
     }
 
