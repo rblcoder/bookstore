@@ -106,6 +106,20 @@ public class BookServiceTest {
 
     }
 
+    @Test
+    void shouldThrowExceptionGetBookByTitlePublishedYearNotFound() {
+        Book bookPeace = Book.builder().id(1L).title("Peace")
+                .publishedYear(2002L).genre(genreClassics).build();
+
+        when(bookRepository
+                .findBookByTitleAndPublishedYear(bookPeace.getTitle(),
+                        bookPeace.getPublishedYear())).thenThrow(new BookNotFoundException());
+
+        Assertions.assertThrows(BookNotFoundException.class, ()->
+                bookService.getBookByTitlePublishedYear(bookPeace.getTitle(),
+                        bookPeace.getPublishedYear()));
+
+    }
 
     @Test
     void shouldFindBooksByTitleIgnoringCase() {
