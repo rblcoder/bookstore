@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -20,5 +21,19 @@ public class WebGenreController {
         model.addAttribute("genres", genreList);
 
         return "genre/genres";
+    }
+
+    @GetMapping("/genres/new")
+    public String newGenre(Model model){
+        model.addAttribute("genre", new Genre());
+        model.addAttribute("pageTitle", "Create New Genre");
+        model.addAttribute("allGenres", genreService.getAllGenres());
+        return "genre/genre_form";
+    }
+
+    @PostMapping("/genres/save")
+    public String saveGenre(Genre genre){
+        genreService.save(genre);
+        return "redirect:/genres";
     }
 }

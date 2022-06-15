@@ -16,4 +16,8 @@ public class GenreService {
     public List<Genre> getAllGenres() {
         return genreRepository.findAll();
     }
+
+    public Genre save(Genre genre){
+        return genreRepository.save(genre);
+    }
 }
