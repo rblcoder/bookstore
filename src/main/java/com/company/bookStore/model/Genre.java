@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,6 +24,7 @@ public class Genre {
 
     @NonNull
     @Column(length = 128, nullable = false, unique = true)
+    @NotEmpty(message = "Genre name cannot be empty")
     private String name;
 
     @ManyToOne
