@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GenreService {
@@ -17,7 +18,11 @@ public class GenreService {
         return genreRepository.findAll();
     }
 
-    public Genre save(Genre genre){
+    public Genre save(Genre genre) {
         return genreRepository.save(genre);
+    }
+
+    public Optional<Genre> getGenreById(Long id) {
+        return genreRepository.findById(id);
     }
 }

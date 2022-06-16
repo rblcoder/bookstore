@@ -115,7 +115,7 @@ public class BookServiceTest {
                 .findBookByTitleAndPublishedYear(bookPeace.getTitle(),
                         bookPeace.getPublishedYear())).thenThrow(new BookNotFoundException());
 
-        Assertions.assertThrows(BookNotFoundException.class, ()->
+        Assertions.assertThrows(BookNotFoundException.class, () ->
                 bookService.getBookByTitlePublishedYear(bookPeace.getTitle(),
                         bookPeace.getPublishedYear()));
 

@@ -6,7 +6,7 @@
     <div th:replace="navigation :: menu"></div>
     <h2>Manage Genres</h2>
 
-    <a th:href="@{/genres/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+    <a class="fas fa-folder-plus fa-2x icon-dark mr-2" th:href="@{/genres/new}"></a>
     <div class="full-details">
 
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
@@ -14,6 +14,7 @@
             <tr>
                 <th> Name</th>
                 <th> Parent</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -23,9 +24,13 @@
             <tr th:each="genre : ${genres}">
                 <td><span th:text="${genre.name}"> Name </span></td>
                 <td><span th:text="${genre.parent?.name}"> Parent </span></td>
+                <td>
+                    <div th:replace="fragments :: edit('genre', '/genres/edit/' + ${genre.id})"/>
+                </td>
             </tr>
             </tbody>
         </table>
+
         <div th:replace="fragments :: footer"></div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 package com.company.bookStore.config;
 
 import com.company.bookStore.exception.BookNotFoundException;
+import com.company.bookStore.exception.GenreNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.ConversionFailedException;
@@ -26,6 +27,13 @@ public class GlobalControllerExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> handleBookNotFound(RuntimeException ex) {
         logger.error("Book not Found", ex);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(GenreNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> handleGenreNotFound(RuntimeException ex) {
+        logger.error("Genre not Found", ex);
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
