@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Users - BookShop Admin')"/>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu"></div>
+    <h2>Manage Genres</h2>
+
+    <a class="fas fa-folder-plus fa-2x icon-dark mr-2" th:href="@{/users/new}"></a>
+    <div class="full-details">
+
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead>
+            <tr>
+                <th> Email </th>
+                <th> First Name </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${users.empty}">
+                <td colspan="2"> No Users Available</td>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td><span th:text="${user.email}"> Name </span></td>
+                <td><span th:text="${genre.firstName}"> Parent </span></td>
+                <td>
+                    <div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div th:replace="fragments :: footer"></div>
+    </div>
+</div>
+</body>
+</html>

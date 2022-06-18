@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -106,6 +107,7 @@ public class BooksIntegrationTest {
     }
 
     @Test
+    @WithMockUser
     public void testGetBooks() throws Exception {
 
         mockMvc.perform(get("/api/v1/books"))
@@ -116,6 +118,7 @@ public class BooksIntegrationTest {
     }
 
     @Test
+    @WithMockUser
     public void testGetBookById() throws Exception {
 
         mockMvc.perform(get("/api/v1/books/1"))
@@ -126,6 +129,7 @@ public class BooksIntegrationTest {
     }
 
     @Test
+    @WithMockUser
     public void testGetBooksByTitle() throws Exception {
 
         mockMvc.perform(get("/api/v1/books/title/peace"))
@@ -135,6 +139,7 @@ public class BooksIntegrationTest {
     }
 
     @Test
+    @WithMockUser
     public void testGetBookByTitleAndPublishedYear() throws Exception {
 
         mockMvc.perform(get("/api/v1/books/title/Peace/publishedyear/2002"))

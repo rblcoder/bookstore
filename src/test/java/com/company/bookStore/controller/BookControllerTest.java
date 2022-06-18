@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BookControllerTest {
 
-    @Autowired
     MockMvc mockMvc;
 
     @Autowired
@@ -41,12 +43,17 @@ public class BookControllerTest {
 
     private Genre genreNonFiction;
 
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
     @BeforeAll
     void setUp() {
         Genre genreNonFiction = new Genre(1L, "Non Fiction");
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
+    @WithMockUser
     void shouldGetAllBooks() throws Exception {
         List<BookDto> bookDtoList = new ArrayList<>();
         BookDto bookDtoPeace = BookDto.builder().id(1L)
@@ -67,6 +74,7 @@ public class BookControllerTest {
     }
 
     @Test
+    @WithMockUser
     void shouldGetBookById() throws Exception {
         BookDto bookDtoPeace = BookDto.builder()
                 .id(1L).title("Peace")
@@ -80,6 +88,7 @@ public class BookControllerTest {
     }
 
     @Test
+    @WithMockUser
     void shouldFindBooksByTitleIgnoringCase() throws Exception {
         List<BookDto> bookDtoList = new ArrayList<>();
         BookDto bookDtoPeace = BookDto.builder()
@@ -95,6 +104,7 @@ public class BookControllerTest {
     }
 
     @Test
+    @WithMockUser
     void shouldSaveNewBook() throws Exception {
         BookDto bookDtoPeace = BookDto.builder()
                 .title("Peace")

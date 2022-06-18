@@ -20,6 +20,10 @@ spring:
   thymeleaf:
     prefix: file:src/main/resources/templates/
     cache: false
+  security:
+    user:
+      name: admin
+      password: $2a$10$6pZZSQdXesumcyu7SNmjtuItu1tMQ1Z7QgAOlB/MjLldbcDvuY6b6
 logging:
   file:
     name: store.log
