@@ -2,12 +2,15 @@ package com.company.bookStore.config;
 
 import com.company.bookStore.model.Book;
 import com.company.bookStore.model.Genre;
+import com.company.bookStore.model.Role;
 import com.company.bookStore.repository.BookRepository;
 import com.company.bookStore.repository.GenreRepository;
+import com.company.bookStore.repository.RoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.BeanDefinitionDsl;
 
 import javax.annotation.PostConstruct;
 
@@ -21,6 +24,9 @@ public class PreLoadData {
 
     @Autowired
     private GenreRepository genreRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     public @PostConstruct
     void init() {
@@ -58,6 +64,12 @@ public class PreLoadData {
                 .genre(genreJava).build();
 
         logger.info("Preloading " + bookRepository.save(bookJavaLearn));
+
+        Role roleAdmin = Role.builder().id(1L)
+                .name("Admin").description("Administration").build();
+
+        logger.info("Preloading " + roleRepository.save(roleAdmin));
+
 
     }
 
