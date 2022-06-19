@@ -35,7 +35,7 @@ public class WebUserController {
     @GetMapping("/users/edit/{id}")
     public String editUser(Model model, @PathVariable Long id) {
         User user = userService.getUserById(id)
-                .orElseThrow(()->new UserNotFoundException());
+                .orElseThrow(() -> new UserNotFoundException());
         model.addAttribute("user", user);
         model.addAttribute("pageTitle", "Edit User");
         model.addAttribute("roles", userService.getAllRoles());
