@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -21,11 +22,15 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public  List<Role> getAllRoles(){
+    public List<Role> getAllRoles() {
         return roleRepository.findAll();
+    }
+
+    public Optional<User> getUserById(Long id){
+        return userRepository.findById(id);
     }
 }

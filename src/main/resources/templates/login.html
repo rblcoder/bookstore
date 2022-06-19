@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta content="width=device-width,initial-scale=1.0, minimum-scale=1.0" name="viewport">
+
+    <title>Login - Book Shop Admin</title>
+
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet">
+
+</head>
+<body>
+<div class="container-fluid text-center">
+
+    <div>
+        <img class="img-fluid" th:src="@{/images/logo.png}"/>
+    </div>
+
+    <form method="post" style="max-width: 350px; margin: 0 auto" th:action="@{/login}">
+        <div th:if="${param.error}">
+            <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        </div>
+        <div th:if="${param.logout}">
+            <p class="text-warning">You have been logged out.</p>
+        </div>
+
+        <div class="border border-secondary rounded p-3">
+            <p>Access to Book Shop Admin Panel</p>
+            <p>
+                <input class="form-control" name="email" placeholder="E-mail" required type="email"/>
+            </p>
+            <p>
+                <input class="form-control" name="password" placeholder="Password" required type="password"/>
+            </p>
+
+            <p>
+                <input class="btn btn-primary" type="submit" value="Login"/>
+            </p>
+        </div>
+    </form>
+
+    <div>
+        <p>Book Shop Admin Panel - Copyright &copy; Book Shop</p>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,8 +1,8 @@
 package com.company.bookStore.service;
 
-import com.company.bookStore.model.Genre;
 import com.company.bookStore.model.Role;
 import com.company.bookStore.model.User;
+import com.company.bookStore.repository.RoleRepository;
 import com.company.bookStore.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.when;
 
@@ -27,6 +28,9 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private RoleRepository roleRepository;
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -40,8 +44,8 @@ public class UserServiceTest {
     void setUp() {
         roles = new HashSet<>();
         Role roleAdmin = Role.builder().id(1L)
-                        .name("admin")
-                        .description("Administrator").build();
+                .name("admin")
+                .description("Administrator").build();
         roles.add(roleAdmin);
     }
 
@@ -62,5 +66,13 @@ public class UserServiceTest {
 
         Assertions.assertEquals(userList, userService.getAllUsers());
 
+    }
+
+    @Test
+    void shouldGetAllRoles() {
+        List<Role> roleList = roles.stream().collect(Collectors.toList());
+
+        when(roleRepository.findAll()).thenReturn(roleList);
+        Assertions.assertEquals(roleList, userService.getAllRoles());
     }
 }
