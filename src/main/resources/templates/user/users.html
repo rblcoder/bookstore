@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_head('Users - BookShop Admin')"/>
+<head th:replace="fragments :: page_head('List All Users')"/>
 <body>
 <div class="container-fluid">
     <div th:replace="navigation :: menu"></div>
@@ -14,6 +14,8 @@
             <tr>
                 <th> Email </th>
                 <th> First Name </th>
+                <th> Last Name </th>
+                <th> Roles </th>
                 <th></th>
             </tr>
             </thead>
@@ -23,7 +25,9 @@
             </tr>
             <tr th:each="user : ${users}">
                 <td><span th:text="${user.email}"> Name </span></td>
-                <td><span th:text="${genre.firstName}"> Parent </span></td>
+                <td><span th:text="${user.firstName}"> First Name </span></td>
+                <td><span th:text="${user.lastName}"> Last Name </span></td>
+                <td><span th:text="${user.roles}"> Roles </span></td>
                 <td>
                     <div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})"/>
                 </td>

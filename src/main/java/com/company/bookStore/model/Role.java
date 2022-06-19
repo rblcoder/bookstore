@@ -1,7 +1,6 @@
 package com.company.bookStore.model;
 
 import lombok.*;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -36,5 +35,14 @@ public class Role {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description);
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
