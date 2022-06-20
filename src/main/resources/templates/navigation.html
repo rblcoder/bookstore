@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="menu">
 
@@ -24,17 +24,16 @@
                 </li>
 
 
-
             </ul>
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
 
 
-                    <div sec:authorize ="isAuthenticated()">
-                        <form name="logoutForm" th:action="@{/logout}" method="post">
-                            <input type="submit" value="Logout" class="nav-link"
-                                   style="background: none; border: none;"/>
+                    <div sec:authorize="isAuthenticated()">
+                        <form method="post" name="logoutForm" th:action="@{/logout}">
+                            <input class="nav-link" style="background: none; border: none;" type="submit"
+                                   value="Logout"/>
                         </form>
                     </div>
 

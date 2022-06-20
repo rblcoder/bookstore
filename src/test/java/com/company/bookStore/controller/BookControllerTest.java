@@ -5,7 +5,6 @@ import com.company.bookStore.repository.UserRepository;
 import com.company.bookStore.service.BookDto;
 import com.company.bookStore.service.BookService;
 import com.company.bookStore.service.GenreService;
-import com.company.bookStore.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

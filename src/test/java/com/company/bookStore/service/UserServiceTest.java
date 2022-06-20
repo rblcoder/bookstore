@@ -74,7 +74,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void shouldGetUserById(){
+    void shouldGetUserById() {
         User user = User.builder().id(1L)
                 .email("emily@email.com")
                 .firstName("Emily")
