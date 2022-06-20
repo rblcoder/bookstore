@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head th:replace="fragments :: page_head('Home - Shopme Admin')"/>
 <body>
@@ -8,7 +9,9 @@
     <div>
         <h2>Book Shop Admin Panel</h2>
         Welcome
-
+        <a th:href="@{/account}"
+           sec:authentication="principal.fullname"></a>
+        <span sec:authentication="principal.authorities"></span>
 
     </div>
 
