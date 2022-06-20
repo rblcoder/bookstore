@@ -14,10 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.when;
@@ -74,5 +71,45 @@ public class UserServiceTest {
 
         when(roleRepository.findAll()).thenReturn(roleList);
         Assertions.assertEquals(roleList, userService.getAllRoles());
+    }
+
+    @Test
+    void shouldGetUserById(){
+        User user = User.builder().id(1L)
+                .email("emily@email.com")
+                .firstName("Emily")
+                .lastName("Chacko")
+                .enabled(true)
+                .password(passwordEncoder.encode("password"))
+                .roles(roles).build();
+
+        when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(user));
+
+        Assertions.assertEquals(Optional.ofNullable(user), userService.getUserById(1L));
+    }
+
+    @Test
+    void shouldSaveUser() {
+
+        User userSaved = User.builder().id(1L)
+                .email("emily@email.com")
+                .firstName("Emily")
+                .lastName("Chacko")
+                .enabled(true)
+                .password(passwordEncoder.encode("password"))
+                .roles(roles).build();
+
+        User user = User.builder().id(1L)
+                .email("emily@email.com")
+                .firstName("Emily")
+                .lastName("Chacko")
+                .enabled(true)
+                .password("password")
+                .roles(roles).build();
+
+        when(userRepository.save(userSaved)).thenReturn(userSaved);
+
+        Assertions.assertEquals(userSaved, userService.save(user));
+
     }
 }

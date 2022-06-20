@@ -1,9 +1,11 @@
 package com.company.bookStore.controller;
 
 import com.company.bookStore.model.Genre;
+import com.company.bookStore.repository.UserRepository;
 import com.company.bookStore.service.BookDto;
 import com.company.bookStore.service.BookService;
 import com.company.bookStore.service.GenreService;
+import com.company.bookStore.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -26,7 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
+@WebMvcTest(controllers = BookController.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BookControllerTest {
 
@@ -40,6 +42,9 @@ public class BookControllerTest {
 
     @MockBean
     private GenreService genreService;
+
+    @MockBean
+    private UserRepository userRepository;
 
     private Genre genreNonFiction;
 
