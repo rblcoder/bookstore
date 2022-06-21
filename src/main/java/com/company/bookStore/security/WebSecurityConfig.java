@@ -12,7 +12,7 @@ import org.springframework.security.web.DefaultSecurityFilterChain;
 @Configuration
 public class WebSecurityConfig {
     @Bean
-    public PasswordEncoder getPasswordEncoder() {
+    public PasswordEncoder PasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -26,7 +26,7 @@ public class WebSecurityConfig {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(getPasswordEncoder());
+        authProvider.setPasswordEncoder(PasswordEncoder());
 
         return authProvider;
     }
