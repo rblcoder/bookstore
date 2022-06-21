@@ -2,10 +2,7 @@ package com.company.bookStore.config;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,5 +44,12 @@ public class AspectConfig {
         logger.info("Execution time of " + className + "." + methodName + " :: " + stopWatch.getTotalTimeMillis() + " ms");
 
         return result;
+    }
+
+    @AfterThrowing(pointcut = "execution(* com.company.bookStore.service.*.*(..))", throwing = "ex")
+    public void logMessageAfterExceptionThrown(JoinPoint joinPoint, Throwable ex){
+        logger.error("An exception was thrown was thrown in " + joinPoint.getSignature()
+                + " with exception message "+ ex.getMessage()
+                );
     }
 }
