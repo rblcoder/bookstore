@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class WebIndexController {
 
-    @GetMapping("")
+    @GetMapping(value = {"", "home"})
     public String viewHomePage() {
         return "index";
     }
