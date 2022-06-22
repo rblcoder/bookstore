@@ -20,7 +20,6 @@ spring:
     baseline-on-migrate: true
     validate-on-migrate: true
   thymeleaf:
-    prefix: file:src/main/resources/templates/
     cache: false
 logging:
   file:

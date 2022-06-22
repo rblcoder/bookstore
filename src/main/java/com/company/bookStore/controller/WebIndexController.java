@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class WebIndexController {
 
-    @GetMapping("/")
+    @GetMapping("")
     public String viewHomePage() {
         return "index";
     }
 
-    @GetMapping("/login")
+    @GetMapping("login")
     public String viewLoginPage() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         }
-        return "redirect:/";
+        return "redirect:";
     }
 }

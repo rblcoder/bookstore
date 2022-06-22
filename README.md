@@ -1,14 +1,14 @@
 # bookstore
 
 ## To access swagger ui
-Use http://localhost:8080/swagger-ui.html
+Use http://localhost/swagger-ui.html
 
 ## Dockerizing Spring boot 
 Commands:
 
 docker image build -t bookshop .
 
-docker run -it -d -p 8080:8080 IMAGE_ID
+docker run -it -d -p 80:80 IMAGE_ID --server.port=80
 
 Reference:
 
