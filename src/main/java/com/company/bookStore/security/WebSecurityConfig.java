@@ -33,22 +33,23 @@ public class WebSecurityConfig {
 
     @Bean
     protected DefaultSecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated()
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/genres/**").authenticated()
+                .antMatchers("/users/**").authenticated()
+                .antMatchers("/", "/home").authenticated()
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/api/v1/books/**").authenticated()
+                .antMatchers("/images/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .usernameParameter("email")
-                .permitAll();
+                .usernameParameter("email").permitAll();
+
+        http.headers().frameOptions().sameOrigin();
+
 
         return http.build();
 
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/images/**",
-                "/h2-console/**");
-
-    }
 }
