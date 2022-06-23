@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,7 +17,10 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(description = "Genre of Books")
-public class Genre {
+public class Genre implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

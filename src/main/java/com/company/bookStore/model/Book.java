@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -16,7 +17,10 @@ import java.util.Objects;
 @Table(name = "book",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "publishedYear"})})
 @Schema(description = "Details of Book")
-public class Book {
+public class Book implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

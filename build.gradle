@@ -38,6 +38,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-aop:2.7.0'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	testImplementation 'org.springframework.security:spring-security-test'
+	implementation "org.springframework.boot:spring-boot-starter-cache"
+	// https://mvnrepository.com/artifact/com.hazelcast/hazelcast
+	implementation 'com.hazelcast:hazelcast'
+	// https://mvnrepository.com/artifact/com.hazelcast/hazelcast-spring
+	implementation 'com.hazelcast:hazelcast-spring'
+
 
 }
 

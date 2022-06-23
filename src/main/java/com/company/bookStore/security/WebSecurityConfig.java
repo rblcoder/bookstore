@@ -40,10 +40,16 @@ public class WebSecurityConfig {
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/api/v1/books/**").authenticated()
                 .antMatchers("/images/**").permitAll()
+                .antMatchers("/login/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .usernameParameter("email").permitAll();
+                .defaultSuccessUrl("/home")
+                .failureUrl("/login?error")
+                .usernameParameter("email")
+                .and()
+                .logout().logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true);
 
         http.headers().frameOptions().sameOrigin();
 

@@ -58,4 +58,8 @@ public class BookService {
     public BookDto saveBook(BookDto bookDto) {
         return convertEntityToDto(bookRepository.save(convertDtoToEntity(bookDto)));
     }
+
+    public void deleteBookById(Long id) {
+        bookRepository.deleteById(id);
+    }
 }

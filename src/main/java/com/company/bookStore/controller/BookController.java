@@ -8,7 +8,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +43,8 @@ public class BookController {
             @ApiResponse(responseCode = "404", description = "Book not found",
                     content = @Content)})
     @GetMapping("{id}")
+
+    @Transactional(readOnly = true)
     public ResponseEntity<BookDto> getBookById(@PathVariable Long id) {
         return ResponseEntity.ok(bookService.getBookById(id));
     }
@@ -69,6 +74,13 @@ public class BookController {
     @PostMapping
     public ResponseEntity<BookDto> newBook(@org.springframework.web.bind.annotation.RequestBody BookDto bookDto) {
         return ResponseEntity.ok(bookService.saveBook(bookDto));
+    }
+
+    @DeleteMapping("/{id}")
+    @CacheEvict("book-cache")
+    public ResponseEntity<?> deleteBook(@PathVariable Long id) {
+        bookService.deleteBookById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
