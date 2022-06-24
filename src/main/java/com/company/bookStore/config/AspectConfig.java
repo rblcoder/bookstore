@@ -25,8 +25,7 @@ public class AspectConfig {
     }
 
     @Around("execution(* com.company.bookStore.controller.*.*(..)))")
-    public Object profileAllMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable
-    {
+    public Object profileAllMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
 
         //Get intercepted method details
@@ -47,9 +46,9 @@ public class AspectConfig {
     }
 
     @AfterThrowing(pointcut = "execution(* com.company.bookStore.service.*.*(..))", throwing = "ex")
-    public void logMessageAfterExceptionThrown(JoinPoint joinPoint, Throwable ex){
+    public void logMessageAfterExceptionThrown(JoinPoint joinPoint, Throwable ex) {
         logger.error("An exception was thrown was thrown in " + joinPoint.getSignature()
-                + " with exception message "+ ex.getMessage()
-                );
+                + " with exception message " + ex.getMessage()
+        );
     }
 }

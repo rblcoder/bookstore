@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class BookCacheConfig {
 
     @Bean
-    public Config cacheConfig(){
+    public Config cacheConfig() {
         return new Config().setInstanceName("hazel-instance")
                 .addMapConfig(new MapConfig()
                         .setName("book-cache")

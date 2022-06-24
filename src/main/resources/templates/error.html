@@ -6,16 +6,16 @@
 <body>
 
 
-    <body class="container-fluid" th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
-    <div th:replace="navigation :: menu"></div>
+<body class="container-fluid" th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
+<div th:replace="navigation :: menu"></div>
 
-    <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
-    <p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
+<h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
+<p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
 
-    <a href="index.html" th:href="@{/}">Back to Home Page</a>
-    </body>
+<a href="index.html" th:href="@{/}">Back to Home Page</a>
+</body>
 
-    <div th:replace="fragments :: footer"></div>
+<div th:replace="fragments :: footer"></div>
 
 </div>
 </body>

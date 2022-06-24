@@ -16,13 +16,13 @@
 
 
                 <li class="nav-item">
-                    <a th:classappend="${#httpServletRequest.getRequestURI() == '/genres' ? 'active':''}"
-                            class="nav-link" th:href="@{/genres}">Genres</a>
+                    <a class="nav-link"
+                       th:classappend="${#httpServletRequest.getRequestURI() == '/genres' ? 'active':''}" th:href="@{/genres}">Genres</a>
                 </li>
 
                 <li class="nav-item">
-                    <a th:classappend="${#httpServletRequest.getRequestURI() == '/users' ? 'active':''}"
-                            class="nav-link" th:href="@{/users}">Users</a>
+                    <a class="nav-link"
+                       th:classappend="${#httpServletRequest.getRequestURI() == '/users' ? 'active':''}" th:href="@{/users}">Users</a>
                 </li>
 
 
