@@ -27,10 +27,19 @@ public class BookController {
             @ApiResponse(responseCode = "200", description = "Found all the books",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = BookDto[].class))})})
-    @GetMapping
+    @GetMapping("all")
     public ResponseEntity<List<BookDto>> getBooks() {
         return ResponseEntity.ok(bookService.getAllBooks());
     }
+
+    @Operation(summary = "Get all books by Page and Size")
+    @GetMapping
+    public ResponseEntity<List<BookDto>> getBooksByPageAndSize(
+            @RequestParam int page,
+            @RequestParam int size){
+        return ResponseEntity.ok(bookService.getAllBooksByPageAndSize(page, size));
+    }
+
 
     @Operation(summary = "Get a book by its id")
     @ApiResponses(value = {

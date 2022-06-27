@@ -75,6 +75,20 @@ public class PreLoadData {
 
         logger.info("Preloading " + bookRepository.save(bookJavaLearn));
 
+        Book bookJavaGenericsCollections = Book.builder()
+                .id(3L).title("Learn Java Generics and Collections")
+                .publishedYear(2021L)
+                .genre(genreJava).build();
+
+        logger.info("Preloading " + bookRepository.save(bookJavaGenericsCollections));
+
+        Book bookImplementDesignPatternsUsingJava = Book.builder()
+                .id(4L).title("Implement Design Patterns Using Java")
+                .publishedYear(2019L)
+                .genre(genreJava).build();
+
+        logger.info("Preloading " + bookRepository.save(bookImplementDesignPatternsUsingJava));
+
         Role roleAdmin = Role.builder().id(1L)
                 .name("Admin").description("Administration").build();
 

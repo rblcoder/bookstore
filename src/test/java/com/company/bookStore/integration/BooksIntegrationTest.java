@@ -51,6 +51,14 @@ public class BooksIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    public BookDto convertBookToBookDto(Book book){
+        BookDto bookDto = BookDto.builder()
+                .id(book.getId()).title(book.getTitle())
+                .publishedYear(book.getPublishedYear())
+                .genre(book.getGenre()).build();
+        return bookDto;
+    }
+
     @BeforeAll
     public void setup() {
 
@@ -89,19 +97,35 @@ public class BooksIntegrationTest {
 
         logger.info("Preloading " + bookRepository.save(bookJavaLearn));
 
-        bookDtoPeace = BookDto.builder()
-                .id(bookPeace.getId()).title(bookPeace.getTitle())
-                .publishedYear(bookPeace.getPublishedYear())
-                .genre(bookPeace.getGenre()).build();
+        bookDtoPeace = convertBookToBookDto(bookPeace);
 
-        bookDtoJavaLearn = BookDto.builder()
-                .id(bookJavaLearn.getId()).title(bookJavaLearn.getTitle())
-                .publishedYear(bookJavaLearn.getPublishedYear())
-                .genre(bookJavaLearn.getGenre()).build();
+        bookDtoJavaLearn = convertBookToBookDto(bookJavaLearn);
+
+        Book bookJavaGenericsCollections = Book.builder()
+                .id(3L).title("Learn Java Generics and Collections")
+                .publishedYear(2021L)
+                .genre(genreJava).build();
+
+        logger.info("Preloading " + bookRepository.save(bookJavaGenericsCollections));
+
+        Book bookImplementDesignPatternsUsingJava = Book.builder()
+                .id(4L).title("Implement Design Patterns Using Java")
+                .publishedYear(2019L)
+                .genre(genreJava).build();
+
+        logger.info("Preloading " + bookRepository.save(bookImplementDesignPatternsUsingJava));
+
+        BookDto bookDtoJavaGenericsCollections =
+                convertBookToBookDto(bookJavaGenericsCollections);
+
+        BookDto bookDtoImplementDesignPatternsUsingJava =
+                convertBookToBookDto(bookImplementDesignPatternsUsingJava);
 
         bookDtoList = new ArrayList<>();
         bookDtoList.add(bookDtoPeace);
         bookDtoList.add(bookDtoJavaLearn);
+        bookDtoList.add(bookDtoJavaGenericsCollections);
+        bookDtoList.add(bookDtoImplementDesignPatternsUsingJava);
 
 
     }
@@ -110,7 +134,7 @@ public class BooksIntegrationTest {
     @WithMockUser
     public void testGetBooks() throws Exception {
 
-        mockMvc.perform(get("/api/v1/books"))
+        mockMvc.perform(get("/api/v1/books/all"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().json(objectMapper.writeValueAsString(bookDtoList)))
                 .andDo(print());

@@ -4,6 +4,8 @@ import com.company.bookStore.exception.BookNotFoundException;
 import com.company.bookStore.model.Book;
 import com.company.bookStore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,16 @@ public class BookService {
 
     public List<BookDto> getAllBooks() {
         return bookRepository.findAllByOrderByPublishedYearDesc().stream()
+                .map(this::convertEntityToDto).collect(Collectors.toList());
+    }
+
+    public List<BookDto> getAllBooksByPageAndSize(int page, int size){
+        PageRequest pageRequest =
+                PageRequest.of(page, size);
+        Page<Book> bookPage = bookRepository.findAll(pageRequest);
+        bookPage.
+        return bookPage.getContent()
+                .stream()
                 .map(this::convertEntityToDto).collect(Collectors.toList());
     }
 

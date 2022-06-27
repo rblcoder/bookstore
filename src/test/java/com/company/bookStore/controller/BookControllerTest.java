@@ -72,7 +72,7 @@ public class BookControllerTest {
 
         when(bookService.getAllBooks()).thenReturn(bookDtoList);
 
-        mockMvc.perform(get("/api/v1/books"))
+        mockMvc.perform(get("/api/v1/books/all"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(bookDtoList)));
     }

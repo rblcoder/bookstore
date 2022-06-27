@@ -2,6 +2,8 @@ package com.company.bookStore.repository;
 
 import com.company.bookStore.model.Book;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -15,6 +17,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findById(Long aLong);
 
     List<Book> findAllByOrderByPublishedYearDesc();
+
+    Page<Book> findAll(Pageable pageable);
 
     Optional<Book> findBookByTitleAndPublishedYear(String title, Long publishedYear);
 }
