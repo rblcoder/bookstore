@@ -26,7 +26,6 @@ public class BookService {
         PageRequest pageRequest =
                 PageRequest.of(page, size);
         Page<Book> bookPage = bookRepository.findAll(pageRequest);
-        bookPage.
         return bookPage.getContent()
                 .stream()
                 .map(this::convertEntityToDto).collect(Collectors.toList());
