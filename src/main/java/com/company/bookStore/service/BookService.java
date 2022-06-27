@@ -16,7 +16,7 @@ public class BookService {
     private BookRepository bookRepository;
 
     public List<BookDto> getAllBooks() {
-        return bookRepository.findAll().stream()
+        return bookRepository.findAllByOrderByPublishedYearDesc().stream()
                 .map(this::convertEntityToDto).collect(Collectors.toList());
     }
 

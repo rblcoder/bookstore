@@ -14,5 +14,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Override
     Optional<Book> findById(Long aLong);
 
+    List<Book> findAllByOrderByPublishedYearDesc();
+
     Optional<Book> findBookByTitleAndPublishedYear(String title, Long publishedYear);
 }

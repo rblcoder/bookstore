@@ -59,7 +59,7 @@ public class BookServiceTest {
         bookList.add(bookPeace);
         bookList.add(bookIndependence);
 
-        when(bookRepository.findAll()).thenReturn(bookList);
+        when(bookRepository.findAllByOrderByPublishedYearDesc()).thenReturn(bookList);
 
         Assertions.assertEquals(bookDtoList, bookService.getAllBooks());
     }
