@@ -5,6 +5,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,4 +23,12 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Page<Book> findAll(Pageable pageable);
 
     Optional<Book> findBookByTitleAndPublishedYear(String title, Long publishedYear);
+
+    @Query("from Book where title=:title")
+    List<Book> findBooksForTitle(@Param("title") String title);
+
+    @Query("from Book where publishedYear >= :start and publishedYear <= :end")
+    List<Book> findBooksForPublishedYearYearStartEnd(@Param("start") Long start,
+                                                     @Param("end") Long end);
+
 }

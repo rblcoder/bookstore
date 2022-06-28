@@ -74,13 +74,45 @@ public class BookRepositoryTest {
 
     @Test
     void shouldFindBookByTitleAndPublishedYear() {
-        Book bookPeace = Book.builder()
+        Book bookJack = Book.builder()
                 .id(1L).title("Jack and the beanstalk")
                 .publishedYear(2002L).build();
-        bookRepository.save(bookPeace);
-        Assertions.assertEquals(Optional.of(bookPeace),
+        bookRepository.save(bookJack);
+        Assertions.assertEquals(Optional.of(bookJack),
                 bookRepository
                         .findBookByTitleAndPublishedYear("Jack and the beanstalk",
                                 2002L));
+    }
+
+    @Test
+    void shouldFindBooksByTitle(){
+        Book bookJack = Book.builder()
+                .id(1L).title("Jack and the beanstalk")
+                .publishedYear(2002L).build();
+        bookRepository.save(bookJack);
+        List<Book> bookList = new ArrayList<>();
+        bookList.add(bookJack);
+        Assertions.assertEquals(bookList,
+                bookRepository.findBooksForTitle(bookJack.getTitle()));
+
+    }
+
+    @Test
+    void shouldfindBooksForPublishedYearYearStartEnd(){
+        Book bookPeace = Book.builder()
+                .id(1L).title("Meditation Now")
+                .publishedYear(2010L).build();
+
+        Book bookIndependence =
+                Book.builder()
+                        .id(2L).title("India Independence")
+                        .publishedYear(1998L).build();
+
+        bookRepository.save(bookPeace);
+        bookRepository.save(bookIndependence);
+        List<Book> resultBooks = new ArrayList<>();
+        resultBooks.add(bookPeace);
+        Assertions.assertEquals(resultBooks,
+                bookRepository.findBooksForPublishedYearYearStartEnd(2010L, 2010L));
     }
 }
