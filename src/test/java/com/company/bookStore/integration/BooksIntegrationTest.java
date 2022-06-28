@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -137,6 +138,19 @@ public class BooksIntegrationTest {
         mockMvc.perform(get("/api/v1/books/all"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().json(objectMapper.writeValueAsString(bookDtoList)))
+                .andDo(print());
+
+    }
+
+    @Test
+    @WithMockUser
+    public void testGetBooksPage0Size2() throws Exception {
+
+        mockMvc.perform(get("/api/v1/books?page=0&size=2"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().json(objectMapper
+                        .writeValueAsString(bookDtoList.stream().limit(2)
+                                .collect(Collectors.toList()))))
                 .andDo(print());
 
     }
