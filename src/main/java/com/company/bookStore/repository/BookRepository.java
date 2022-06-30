@@ -31,4 +31,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findBooksForPublishedYearYearStartEnd(@Param("start") Long start,
                                                      @Param("end") Long end);
 
+    @Query("select title, publishedYear from Book")
+    List<Object[]> findAllBooksTitlePublishedYear();
+
 }

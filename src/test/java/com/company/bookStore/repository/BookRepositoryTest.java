@@ -115,4 +115,21 @@ public class BookRepositoryTest {
         Assertions.assertEquals(resultBooks,
                 bookRepository.findBooksForPublishedYearYearStartEnd(2010L, 2010L));
     }
+
+    @Test
+    void shouldfindAllBooksTitlePublishedYear() {
+        Book bookPeace = Book.builder()
+                .id(1L).title("Meditation Now")
+                .publishedYear(2010L).build();
+
+        bookRepository.save(bookPeace);
+
+        List<Object[]> objectList;
+        objectList = bookRepository.findAllBooksTitlePublishedYear();
+        Assertions.assertEquals(bookPeace.getTitle(), objectList.get(0)[0]);
+        Assertions.assertEquals(bookPeace.getPublishedYear(), objectList.get(0)[1]);
+        System.out.println(objectList.get(0)[0]);
+        System.out.println(objectList.get(0)[1]);
+
+    }
 }
