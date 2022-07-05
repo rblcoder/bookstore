@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
@@ -47,6 +48,37 @@ public class BookRepositoryTest {
         books.add(bookPeace);
         books.add(bookIndependence);
         Assertions.assertEquals(books, bookRepository.findAll());
+
+    }
+
+    @Test
+    void shouldGetAllBooksSortByTitleDesc() {
+
+        Book bookPeace = Book.builder()
+                .id(1L).title("Meditation Now")
+                .publishedYear(2010L).build();
+
+        Book bookIndependence =
+                Book.builder()
+                        .id(2L).title("India Independence")
+                        .publishedYear(1998L).build();
+
+        Book bookIndependenceAnother =
+                Book.builder()
+                        .id(3L).title("India Independence")
+                        .publishedYear(2008L).build();
+
+        bookRepository.save(bookPeace);
+
+        bookRepository.save(bookIndependence);
+        bookRepository.save(bookIndependenceAnother);
+        List<Book> books = new ArrayList<>();
+        books.add(bookPeace);
+        books.add(bookIndependenceAnother);
+        books.add(bookIndependence);
+        Assertions.assertEquals(books,
+                bookRepository.findAll(
+                        Sort.by("title").descending().and(Sort.by("publishedYear").descending())));
 
     }
 
