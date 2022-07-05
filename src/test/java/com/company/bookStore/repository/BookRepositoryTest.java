@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.DirtiesContext;
@@ -79,6 +80,38 @@ public class BookRepositoryTest {
         books.add(bookIndependence);
         Assertions.assertEquals(books,
                 bookRepository.findAll(Pageable.ofSize(2).withPage(0)).toList());
+
+    }
+
+    @Test
+    void shouldGetAllBooksSortByTitleAscPage0Size2() {
+
+        Book bookPeace = Book.builder()
+                .id(1L).title("Meditation Now")
+                .publishedYear(2010L).build();
+
+        Book bookIndependence =
+                Book.builder()
+                        .id(2L).title("India Independence")
+                        .publishedYear(1998L).build();
+
+        Book bookIndependenceAnother =
+                Book.builder()
+                        .id(3L).title("India Independence")
+                        .publishedYear(2008L).build();
+
+        bookRepository.save(bookPeace);
+
+        bookRepository.save(bookIndependence);
+        bookRepository.save(bookIndependenceAnother);
+        List<Book> books = new ArrayList<>();
+        books.add(bookIndependence);
+
+        books.add(bookIndependenceAnother);
+        Assertions.assertEquals(books,
+                bookRepository.findAll(PageRequest
+                        .of(0, 2,
+                                Sort.by(new Sort.Order(Sort.Direction.ASC, "title")))).toList());
 
     }
 
