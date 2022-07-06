@@ -107,24 +107,18 @@ public class PreLoadData {
 
         logger.info("Preloading " + userRepository.save(userAdmin));
 
-        //
-
         Role roleUser = Role.builder().id(2L)
                 .name("User").description("User").build();
 
         logger.info("Preloading " + roleRepository.save(roleUser));
-
-        Set<Role> roleSetUser = new HashSet<>();
-        roleSetUser.add(roleUser);
 
         User user = User.builder().id(2L)
                 .email("sunita@email.com")
                 .firstName("Sunita")
                 .lastName("Pais")
                 .password(passwordEncoder.encode("user"))
-                .roles(roleSetUser)
                 .enabled(true).build();
-
+        user.addRole(roleUser);
         logger.info("Preloading " + userRepository.save(user));
 
     }
