@@ -52,7 +52,7 @@ public class BookControllerTest {
 
     @BeforeAll
     void setUp() {
-        Genre genreNonFiction = new Genre(1L, "Non Fiction");
+        genreNonFiction = new Genre(1L, "Non Fiction");
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
