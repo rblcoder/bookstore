@@ -11,16 +11,16 @@ import com.company.bookStore.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.HashSet;
 import java.util.Set;
 
 
-@Configuration
-public class PreLoadData {
+@Component
+public class PreLoadData implements CommandLineRunner {
     Logger logger = LoggerFactory.getLogger(PreLoadData.class);
 
     @Autowired
@@ -38,7 +38,6 @@ public class PreLoadData {
     @Autowired
     private UserRepository userRepository;
 
-    public @PostConstruct
     void init() {
 
         Genre genreNonFiction = new Genre(1L, "Non fiction");
@@ -123,4 +122,8 @@ public class PreLoadData {
 
     }
 
+    @Override
+    public void run(String... args) throws Exception {
+        init();
+    }
 }
