@@ -6,6 +6,9 @@ spring:
     username: sa
     password:
   jpa:
+    properties:
+      hibernate:
+        format_sql: true
     database: h2
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
@@ -22,6 +25,14 @@ spring:
   thymeleaf:
     cache: false
 logging:
+  level:
+    org:
+      hibernate:
+        sql: debug
+        type:
+          descriptor:
+            sql: trace
+
   file:
     name: store.log
   logback:
