@@ -34,7 +34,7 @@ logging:
             sql: trace
 
   file:
-    name: store.log
+    name: logs/store.log
   logback:
     rollingpolicy:
       file-name-pattern: store-%d{yyyy-MM-dd}.%i.log
